@@ -1,0 +1,17 @@
+Résumé des modifications pour l'ajout de projet via un formulaire :
+
+1.  **Modification du bouton "Ajouter un projet"** :
+    *   Le lien `<a>` qui redirigeait vers le code source sur GitHub a été remplacé par un élément `<button>` interactif dans le fichier `app/page.tsx`.
+
+2.  **Création d'une modale d'ajout** :
+    *   Un nouveau composant `components/Modal.tsx` a été créé pour afficher une fenêtre modale.
+    *   Cette modale s'ouvre lorsque l'utilisateur clique sur le nouveau bouton "Ajouter un projet".
+
+3.  **Création du formulaire d'ajout** :
+    *   Un composant `components/AddProjectForm.tsx` a été développé. Il contient tous les champs nécessaires pour soumettre un nouveau projet (nom, description, lien, technologies, etc.).
+
+4.  **Mise en place d'une API pour la sauvegarde** :
+    *   Une API route a été créée dans `app/api/projects/route.ts`.
+    *   Cette API reçoit les données du formulaire, génère un nouvel ID pour le projet, lit le fichier `data/projects.json`, ajoute le nouveau projet à la liste, et réécrit le fichier avec les données mises à jour.
+
+En résumé, la fonctionnalité permet maintenant aux utilisateurs d'ajouter un projet directement depuis l'interface du site, sans avoir à modifier le code source manuellement. Le tout est intégré de manière fluide avec une modale et un formulaire, et la sauvegarde est gérée côté serveur via une API dédiée.
