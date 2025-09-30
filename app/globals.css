@@ -1,5 +1,14 @@
 @import "tailwindcss";
 
+/* Classe personnalisée pour limiter le texte à 3 lignes */
+.line-clamp-3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
 :root {
   /* Thème sombre */
   --background: #0a0a0a;
