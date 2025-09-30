@@ -120,7 +120,9 @@ export default function ProjectForm({ onProjectAdded, onClose }: ProjectFormProp
         body: JSON.stringify({
           ...formData,
           technologies: formData.technologies.split(",").map(tech => tech.trim()),
-          stars: 0, // Nouveau projet commence avec 0 étoiles
+          stars: githubData?.stars || 0,
+          forks: githubData?.forks || 0,
+          avatar_url: githubData?.avatar_url || undefined
         }),
       });
 

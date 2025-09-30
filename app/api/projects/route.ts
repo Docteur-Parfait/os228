@@ -10,7 +10,7 @@ export async function POST(request: NextRequest) {
     const body = await request.json();
     
     // Validation des données
-    const { name, description, link, technologies, category, author, language } = body;
+    const { name, description, link, technologies, category, author, language, stars, forks, avatar_url } = body;
     
     if (!name || !description || !link || !technologies || !category || !author || !language) {
       return NextResponse.json(
@@ -41,11 +41,13 @@ export async function POST(request: NextRequest) {
       name: name.trim(),
       description: description.trim(),
       link: link.trim(),
-      technologies: Array.isArray(technologies) ? technologies : technologies.split(",").map(tech => tech.trim()),
+      technologies: Array.isArray(technologies) ? technologies : technologies.split(",").map((tech: string) => tech.trim()),
       category: category.trim(),
       author: author.trim(),
-      stars: 0,
-      language: language.trim()
+      stars: stars || 0,
+      forks: forks || 0,
+      language: language.trim(),
+      avatar_url: avatar_url || undefined
     };
     
     // Ajouter le nouveau projet au début du tableau

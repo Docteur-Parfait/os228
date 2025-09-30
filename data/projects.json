@@ -1,60 +1,88 @@
 [
   {
-    "id": 4,
-    "name": "PokeApi",
-    "description": "Simple implementation of the PokeApi with html, css and Javascript",
-    "link": "https://github.com/arielDirema/PokeApi.git",
+    "id": 5,
+    "name": "AlgoNumeriquesCodes",
+    "description": "Aucune description disponible",
+    "link": "https://github.com/arielDirema/AlgoNumeriquesCodes.git",
     "technologies": [
-      "JavaScript"
+      "Python"
     ],
-    "category": "Web Development",
+    "category": "Open Source",
     "author": "arielDirema",
-    "stars": 0,
-    "language": "JavaScript"
+    "stars": 1,
+    "forks": 0,
+    "language": "Python",
+    "avatar_url": "https://avatars.githubusercontent.com/u/127265436?v=4"
+  },
+  {
+    "id": 4,
+    "name": "toDoLara",
+    "description": "A simple todo list done with Laravel",
+    "link": "https://github.com/arielDirema/toDoLara.git",
+    "technologies": [
+      "Blade"
+    ],
+    "category": "Open Source",
+    "author": "arielDirema",
+    "stars": 1,
+    "forks": 0,
+    "language": "Blade",
+    "avatar_url": "https://avatars.githubusercontent.com/u/127265436?v=4"
   },
   {
     "id": 3,
-    "name": "Beautiful Dialogs",
+    "name": "beautiful_dialog",
     "description": "Beautiful Dialogs is a Flutter open-source project where developers can contribute by adding beautiful dialog widgets!",
     "link": "https://github.com/Docteur-Parfait/beautiful_dialog",
     "technologies": [
-      "Flutter",
       "Dart",
-      "Open Source"
+      "hackoctoberfest2024",
+      "hacktoberfest",
+      "dialogbox",
+      "flutter"
+    ],
+    "category": "Mobile Development",
+    "author": "Docteur-Parfait",
+    "stars": 24,
+    "language": "Dart",
+    "forks": 24,
+    "avatar_url": "https://avatars.githubusercontent.com/u/77333941?v=4"
+  },
+  {
+    "id": 2,
+    "name": "os228",
+    "description": "Les projets Togolais pour le hackoctoberfest",
+    "link": "https://github.com/Docteur-Parfait/os228",
+    "technologies": [
+      "TypeScript",
+      "hackoctoberfest2025",
+      "hacktoberfest",
+      "os228"
     ],
     "category": "Open Source",
     "author": "Docteur-Parfait",
-    "stars": 24,
-    "language": "Dart"
-  },
-  {
-    "id":2,
-    "name": "OS228 Platform",
-    "description": "Plateforme de regroupement des projets open source du Togo pour le Hacktoberfest 2025",
-    "link": "https://github.com/Docteur-Parfait/os228",
-    "technologies": [
-      "Next.js",
-      "TypeScript",
-      "Tailwind CSS"
-    ],
-    "category": "Web Development",
-    "author": "Docteur-Parfait",
-    "stars": 1,
-    "language": "TypeScript"
+    "stars": 7,
+    "language": "TypeScript",
+    "forks": 6,
+    "avatar_url": "https://avatars.githubusercontent.com/u/77333941?v=4"
   },
   {
     "id": 1,
     "name": "PytDm",
-    "description": "Un gestionnaire de téléchargement moderne et intuitif basé sur Python",
+    "description": "Un gestionnaire de téléchargement moderne et intuitif",
     "link": "https://github.com/Docteur-Parfait/PytDm",
     "technologies": [
       "Python",
-      "Tkinter",
-      "Requests"
+      "hacktoberfest",
+      "python",
+      "tkinter",
+      "hackoctoberfest2025"
     ],
-    "category": "Developer Tools",
+    "category": "Open Source",
     "author": "Docteur-Parfait",
-    "stars": 12,
-    "language": "Python"
+    "stars": 13,
+    "language": "Python",
+    "forks": 3,
+    "avatar_url": "https://avatars.githubusercontent.com/u/77333941?v=4"
   }
 ]

@@ -6,6 +6,7 @@ interface GitHubPreviewProps {
     description: string;
     author: string;
     stars: number;
+    forks: number;
     language: string;
     technologies: string[];
     avatar_url?: string;
@@ -52,6 +53,10 @@ export default function GitHubPreview({ data, onClose }: GitHubPreviewProps) {
           <span className="flex items-center gap-1">
             <span>⭐</span>
             {data.stars} étoiles
+          </span>
+          <span className="flex items-center gap-1">
+            <span>🍴</span>
+            {data.forks} forks
           </span>
           <span className="flex items-center gap-1">
             <div className="w-3 h-3 rounded-full bg-primary"></div>

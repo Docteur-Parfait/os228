@@ -9,7 +9,9 @@ export interface Project {
     category: string;
     author: string;
     stars: number;
+    forks?: number;
     language: string;
+    avatar_url?: string;
 }
 
 // Lire les données depuis le fichier JSON et les trier par ID décroissant (dernier ajouté en premier)

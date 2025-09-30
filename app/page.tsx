@@ -5,6 +5,7 @@ import Navbar from "../components/Navbar";
 import ProjectCard from "../components/ProjectCard";
 import ProjectFilters from "../components/ProjectFilters";
 import ProjectForm from "../components/ProjectForm";
+import SyncGitHubButton from "../components/SyncGitHubButton";
 import { projectsData } from "../data/projects";
 import { Project } from "../data/projects";
 
@@ -67,6 +68,19 @@ export default function Home() {
     setProjects(prev => [newProject, ...prev]);
     setShowForm(false);
   };
+
+  // Fonction pour recharger les projets après synchronisation
+  const handleSyncComplete = async () => {
+    try {
+      const response = await fetch("/api/projects");
+      if (response.ok) {
+        const data = await response.json();
+        setProjects(data);
+      }
+    } catch (error) {
+      console.error("Erreur lors du rechargement des projets:", error);
+    }
+  };
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
@@ -91,12 +105,19 @@ export default function Home() {
         {/* Section des projets */}
         <section className="mb-16">
           {/* Filtres et recherche */}
-          <ProjectFilters
-            onSearch={setSearchQuery}
-            onSort={setSortBy}
-            searchQuery={searchQuery}
-            sortBy={sortBy}
-          />
+          <div className="mb-8">
+            <ProjectFilters
+              onSearch={setSearchQuery}
+              onSort={setSortBy}
+              searchQuery={searchQuery}
+              sortBy={sortBy}
+            />
+            
+            {/* Bouton de synchronisation GitHub */}
+            <div className="flex justify-end mb-4">
+              <SyncGitHubButton onSyncComplete={handleSyncComplete} />
+            </div>
+          </div>
 
           {/* Liste des projets */}
           {filteredAndSortedProjects.length > 0 ? (

@@ -5,6 +5,7 @@ interface GitHubRepo {
   description: string;
   html_url: string;
   stargazers_count: number;
+  forks_count: number;
   language: string;
   topics: string[];
   owner: {
@@ -118,6 +119,7 @@ export async function GET(request: NextRequest) {
       category: getCategory(repoData.language, topics),
       author: repoData.owner.login,
       stars: repoData.stargazers_count,
+      forks: repoData.forks_count,
       language: repoData.language || "Other",
       avatar_url: repoData.owner.avatar_url,
       created_at: repoData.created_at,
