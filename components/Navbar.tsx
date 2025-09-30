@@ -3,6 +3,8 @@
 import Image from "next/image";
 import { useTheme } from "../contexts/ThemeContext";
 
+import Link from "next/link";
+
 export default function Navbar() {
   const { theme, toggleTheme } = useTheme();
 
@@ -10,7 +12,7 @@ export default function Navbar() {
     <nav className="sticky md:top-4 top-0 z-50 w-full ">
       <div className=" max-w-6xl backdrop-blur border border-border md:rounded-2xl px-4 mx-auto flex h-16 items-center justify-between">
         {/* Logo et nom */}
-        <div className="flex items-center">
+        <Link href="/" className="flex items-center">
           <Image
             src="/tg.png"
             alt="Drapeau du Togo"
@@ -19,9 +21,15 @@ export default function Navbar() {
             className="h-6 mr-2"
           />
           <h1 className="text-xl font-bold text-foreground">OS228</h1>
-        </div>
+        </Link>
 
         {/* Navigation items */}
+        <div className="hidden md:flex items-center space-x-8">
+          <Link href="/" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">Accueil</Link>
+          <Link href="/projects" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">Projets</Link>
+          <Link href="/how-it-works" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">Comment ça marche</Link>
+        </div>
+
         <div className="flex items-center space-x-4">
           {/* Bouton Contribute avec logo GitHub */}
           <a
