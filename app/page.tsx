@@ -1,22 +1,42 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo, useState, useEffect } from "react";
 import Navbar from "../components/Navbar";
 import ProjectCard from "../components/ProjectCard";
 import ProjectFilters from "../components/ProjectFilters";
+import ProjectForm from "../components/ProjectForm";
 import { projectsData } from "../data/projects";
+import { Project } from "../data/projects";
 
 export default function Home() {
   const [searchQuery, setSearchQuery] = useState("");
   const [sortBy, setSortBy] = useState<"name" | "stars" | "id">("id");
+  const [projects, setProjects] = useState<Project[]>(projectsData);
+  const [showForm, setShowForm] = useState(false);
+
+  // Charger les projets depuis l'API au montage
+  useEffect(() => {
+    const fetchProjects = async () => {
+      try {
+        const response = await fetch("/api/projects");
+        if (response.ok) {
+          const data = await response.json();
+          setProjects(data);
+        }
+      } catch (error) {
+        console.error("Erreur lors du chargement des projets:", error);
+      }
+    };
+    fetchProjects();
+  }, []);
 
   // Filtrer et trier les projets
   const filteredAndSortedProjects = useMemo(() => {
-    let filtered = projectsData;
+    let filtered = projects;
 
     // Filtrage par nom
     if (searchQuery) {
-      filtered = projectsData.filter(
+      filtered = projects.filter(
         (project) =>
           project.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
           project.description
@@ -40,7 +60,13 @@ export default function Home() {
           return b.id - a.id;
       }
     });
-  }, [searchQuery, sortBy]);
+  }, [searchQuery, sortBy, projects]);
+
+  // Fonction pour gérer l'ajout d'un nouveau projet
+  const handleProjectAdded = (newProject: Project) => {
+    setProjects(prev => [newProject, ...prev]);
+    setShowForm(false);
+  };
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
@@ -133,14 +159,12 @@ export default function Home() {
               </svg>
               Contribuer au projet
             </a>
-            <a
-              href="https://github.com/Docteur-Parfait/os228/blob/main/data/projects.json"
-              target="_blank"
-              rel="noopener noreferrer"
+            <button
+              onClick={() => setShowForm(true)}
               className="border border-border text-foreground hover:bg-secondary px-6 py-3 rounded-lg font-medium transition-colors duration-200"
             >
               Ajouter un projet
-            </a>
+            </button>
           </div>
         </section>
       </main>
@@ -158,6 +182,14 @@ export default function Home() {
           </div>
         </div>
       </footer>
+
+      {/* Formulaire d'ajout de projet */}
+      {showForm && (
+        <ProjectForm
+          onProjectAdded={handleProjectAdded}
+          onClose={() => setShowForm(false)}
+        />
+      )}
     </div>
   );
 }

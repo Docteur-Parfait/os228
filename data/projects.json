@@ -1,47 +1,60 @@
 [
-    {
-        "id": 2,
-        "name": "Beautiful Dialogs",
-        "description": "Beautiful Dialogs is a Flutter open-source project where developers can contribute by adding beautiful dialog widgets!",
-        "link": "https://github.com/Docteur-Parfait/beautiful_dialog",
-        "technologies": [
-            "Flutter",
-            "Dart",
-            "Open Source"
-        ],
-        "category": "Open Source",
-        "author": "Docteur-Parfait",
-        "stars": 24,
-        "language": "Dart"
-    },
-    {
-        "id": 1,
-        "name": "OS228 Platform",
-        "description": "Plateforme de regroupement des projets open source du Togo pour le Hacktoberfest 2025",
-        "link": "https://github.com/Docteur-Parfait/os228",
-        "technologies": [
-            "Next.js",
-            "TypeScript",
-            "Tailwind CSS"
-        ],
-        "category": "Web Development",
-        "author": "Docteur-Parfait",
-        "stars": 1,
-        "language": "TypeScript"
-    },
-    {
-        "id": 2,
-        "name": "PytDm",
-        "description": "Un gestionnaire de téléchargement moderne et intuitif basé sur Python",
-        "link": "https://github.com/Docteur-Parfait/PytDm",
-        "technologies": [
-            "Python",
-            "Tkinter",
-            "Requests"
-        ],
-        "category": "Developer Tools",
-        "author": "Docteur-Parfait",
-        "stars": 12,
-        "language": "Python"
-    }
+  {
+    "id": 4,
+    "name": "PokeApi",
+    "description": "Simple implementation of the PokeApi with html, css and Javascript",
+    "link": "https://github.com/arielDirema/PokeApi.git",
+    "technologies": [
+      "JavaScript"
+    ],
+    "category": "Web Development",
+    "author": "arielDirema",
+    "stars": 0,
+    "language": "JavaScript"
+  },
+  {
+    "id": 3,
+    "name": "Beautiful Dialogs",
+    "description": "Beautiful Dialogs is a Flutter open-source project where developers can contribute by adding beautiful dialog widgets!",
+    "link": "https://github.com/Docteur-Parfait/beautiful_dialog",
+    "technologies": [
+      "Flutter",
+      "Dart",
+      "Open Source"
+    ],
+    "category": "Open Source",
+    "author": "Docteur-Parfait",
+    "stars": 24,
+    "language": "Dart"
+  },
+  {
+    "id":2,
+    "name": "OS228 Platform",
+    "description": "Plateforme de regroupement des projets open source du Togo pour le Hacktoberfest 2025",
+    "link": "https://github.com/Docteur-Parfait/os228",
+    "technologies": [
+      "Next.js",
+      "TypeScript",
+      "Tailwind CSS"
+    ],
+    "category": "Web Development",
+    "author": "Docteur-Parfait",
+    "stars": 1,
+    "language": "TypeScript"
+  },
+  {
+    "id": 1,
+    "name": "PytDm",
+    "description": "Un gestionnaire de téléchargement moderne et intuitif basé sur Python",
+    "link": "https://github.com/Docteur-Parfait/PytDm",
+    "technologies": [
+      "Python",
+      "Tkinter",
+      "Requests"
+    ],
+    "category": "Developer Tools",
+    "author": "Docteur-Parfait",
+    "stars": 12,
+    "language": "Python"
+  }
 ]
