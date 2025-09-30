@@ -1,16 +1,5 @@
 [
-    {
-        "id": 4,
-        "name": "Test",
-        "description": "Plater PlaterPlaterPlaterPlaterPlaterPlaterPlaterPlaterPlaterPlaterPlaterPlaterPlaterPlaterPlaterPlaterPlaterPlater",
-        "link": "https://github.com/Docteur-Parfait/os228.git",
-        "technologies": [
-            "React"
-        ],
-        "category": "Frontend",
-        "author": "0xManusdev",
-        "language": "HTML/CSS"
-    },
+
     {
         "id": 3,
         "name": "PytDm",
