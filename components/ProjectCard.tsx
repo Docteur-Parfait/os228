@@ -47,7 +47,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
 				</div>
 			</div>
 
-			<p className="text-muted-foreground mb-4 leading-relaxed">
+			<p className="text-muted-foreground mb-4 leading-relaxed overflow-hidden max-h-[4.5rem] line-clamp-3">
 				{project.description}
 			</p>
 
