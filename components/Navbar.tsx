@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { useTheme } from "../contexts/ThemeContext";
 
 export default function Navbar() {
@@ -22,6 +23,18 @@ export default function Navbar() {
         </div>
 
         {/* Navigation items */}
+        <div className="hidden md:flex items-center space-x-4">
+            <Link href="/" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
+                Accueil
+            </Link>
+            <Link href="/how-it-works" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
+                Comment ça marche
+            </Link>
+            <Link href="/projects" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
+                Projets
+            </Link>
+        </div>
+
         <div className="flex items-center space-x-4">
           {/* Bouton Contribute avec logo GitHub */}
           <a
