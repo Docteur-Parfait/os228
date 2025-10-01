@@ -26,7 +26,7 @@ export default function Home() {
               <span className="text-yellow-500">8</span>
             </h1>
             <p className="text-lg md:text-xl text-white mb-8 max-w-3xl mx-auto">
-              OS228 est une plateforme qui regroupe les projets open source du Togo dans le cadre du Hacktoberfest 2025. Cette initiative vise à promouvoir l'écosystème technologique togolais et à encourager la contribution aux projets open source.
+              OS228 est une plateforme qui regroupe les projets open source du Togo dans le cadre du Hacktoberfest 2025. Cette initiative vise à promouvoir l&apos;écosystème technologique togolais et à encourager la contribution aux projets open source.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Link

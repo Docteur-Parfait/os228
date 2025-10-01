@@ -51,7 +51,7 @@ export default function ProjectsPage() {
           </h1>
 
           <p className="text-lg text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-            Découvrez, contribuez et participez à l'écosystème technologique togolais.
+            Découvrez, contribuez et participez à l&apos;écosystème technologique togolais.
           </p>
         </div>
 
