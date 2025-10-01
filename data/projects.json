@@ -130,5 +130,17 @@
   "category": "Web Development",
   "author": "DevBignuel",
   "language": "Java"
-}
+},
+    {
+        "id": 11,
+        "name": "AlgoNumeriquesCodes",
+        "description": "AlgoNumeriqueCodes est une collection de codes Python dédiés aux algorithmes numériques, notamment l'interpolation, la résolution d'équations et les moindres carrés.",
+        "link": "https://github.com/arielDirema/AlgoNumeriquesCodes.git",
+        "technologies": [
+            "Python"
+        ],
+        "category": "Mathematics, Mathematical programming",
+        "author": "arielDirema",
+        "language": "Python"
+    },
 ]
