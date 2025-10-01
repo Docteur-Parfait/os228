@@ -1,164 +1,139 @@
-"use client";
+'use client';
 
-import { useMemo, useState } from "react";
-import Navbar from "../components/Navbar";
-import ProjectCard from "../components/ProjectCard";
-import ProjectFilters from "../components/ProjectFilters";
-import { projectsData } from "../data/projects";
+import Link from "next/link";
+import Image from "next/image";
 
 export default function Home() {
-  const [searchQuery, setSearchQuery] = useState("");
-  const [sortBy, setSortBy] = useState<"name" | "stars" | "id">("id");
-
-  // Filtrer et trier les projets
-  const filteredAndSortedProjects = useMemo(() => {
-    let filtered = projectsData;
-
-    // Filtrage par nom
-    if (searchQuery) {
-      filtered = projectsData.filter(
-        (project) =>
-          project.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-          project.description
-            .toLowerCase()
-            .includes(searchQuery.toLowerCase()) ||
-          project.technologies.some((tech) =>
-            tech.toLowerCase().includes(searchQuery.toLowerCase())
-          )
-      );
-    }
-
-    // Tri
-    return filtered.sort((a, b) => {
-      switch (sortBy) {
-        case "name":
-          return a.name.localeCompare(b.name, "fr");
-        case "stars":
-          // Tri par popularité (ID décroissant comme proxy)
-          return b.id - a.id;
-        case "id":
-        default:
-          return b.id - a.id;
-      }
-    });
-  }, [searchQuery, sortBy]);
   return (
-    <div className="min-h-screen bg-background">
-      <Navbar />
-
-      <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        {/* Section Hero */}
-        <div className="text-center mb-16">
-          <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-6">
-            OpenSource
-            <span className="text-red-500">2</span>
-            <span className="text-primary">2</span>
-            <span className="text-yellow-500">8</span>
-          </h1>
-
-          <p className="text-lg text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-            Bienvenue sur la plateforme qui regroupe les projets open source du
-            Togo dans le cadre du Hacktoberfest 2025. Découvrez, contribuez et
-            participez à l&apos;écosystème technologique togolais.
-          </p>
-        </div>
-
-        {/* Section des projets */}
-        <section className="mb-16">
-          {/* Filtres et recherche */}
-          <ProjectFilters
-            onSearch={setSearchQuery}
-            onSort={setSortBy}
-            searchQuery={searchQuery}
-            sortBy={sortBy}
-          />
-
-          {/* Liste des projets */}
-          {filteredAndSortedProjects.length > 0 ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {filteredAndSortedProjects.map((project) => (
-                <ProjectCard key={project.id} project={project} />
-              ))}
-            </div>
-          ) : (
-            <div className="text-center py-12">
-              <div className="text-6xl mb-4">🔍</div>
-              <h3 className="text-xl font-semibold text-foreground mb-2">
-                Aucun projet trouvé
-              </h3>
-              <p className="text-muted-foreground">
-                {searchQuery
-                  ? `Aucun projet ne correspond à "${searchQuery}"`
-                  : "Aucun projet disponible pour le moment"}
-              </p>
-              {searchQuery && (
-                <button
-                  onClick={() => setSearchQuery("")}
-                  className="mt-4 text-primary hover:text-primary/80 font-medium transition-colors"
+    <div className="min-h-screen bg-background text-foreground">
+      <main>
+        {/* Hero Section */}
+        <section className="relative text-center py-20 md:py-32 flex items-center justify-center">
+          <div className="absolute inset-0 w-full h-full">
+            <Image
+              src="https://bugfender.com/wp-content/uploads/2022/09/Screenshot_2022-09-27_at_6.58.35_PM.png"
+              alt="Abstract technology background"
+              layout="fill"
+              objectFit="cover"
+              className="opacity-60 blur-sm"
+            />
+          </div>
+          <div className="relative z-10 max-w-4xl mx-auto px-4">
+            <h1 className="text-4xl md:text-6xl font-bold tracking-tight mb-4">
+              OpenSource
+              <span className="text-red-500">2</span>
+              <span className="text-primary">2</span>
+              <span className="text-yellow-500">8</span>
+            </h1>
+            <p className="text-lg md:text-xl text-white mb-8 max-w-3xl mx-auto">
+              OS228 est une plateforme qui regroupe les projets open source du Togo dans le cadre du Hacktoberfest 2025. Cette initiative vise à promouvoir l'écosystème technologique togolais et à encourager la contribution aux projets open source.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <Link
+                  href="/projects"
+                  className="bg-primary text-primary-foreground hover:bg-yellow-500 px-6 py-3 rounded-lg font-medium transition-all duration-300 transform hover:scale-105 flex items-center justify-center gap-2"
                 >
-                  Effacer la recherche
-                </button>
-              )}
+                  Explorer les projets
+                </Link>
+                <a
+                  href="https://github.com/Docteur-Parfait/os228"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="border border-border text-foreground hover:bg-green-500 hover:text-white px-6 py-3 rounded-lg font-medium transition-all duration-300 transform hover:scale-105"
+                >
+                  Contribuer sur GitHub
+                </a>
             </div>
-          )}
+          </div>
         </section>
 
-        {/* Section d'appel à l'action */}
-        <section className="text-center bg-card border border-border rounded-lg p-8">
-          <h3 className="text-2xl font-bold text-card-foreground mb-4">
-            Rejoignez la communauté !
-          </h3>
-          <p className="text-muted-foreground mb-6 max-w-2xl mx-auto">
-            Vous avez un projet open source ou vous souhaitez contribuer ?
-            Ajoutez votre projet à notre plateforme et participez au
-            Hacktoberfest 2025.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <a
-              href="https://github.com/Docteur-Parfait/os228"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="bg-primary hover:bg-primary/90 text-primary-foreground px-6 py-3 rounded-lg font-medium transition-colors duration-200 flex items-center justify-center gap-2"
-            >
-              <svg
-                className="w-4 h-4"
-                fill="currentColor"
-                viewBox="0 0 24 24"
-                aria-hidden="true"
-              >
-                <path
-                  fillRule="evenodd"
-                  d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"
-                  clipRule="evenodd"
-                />
-              </svg>
-              Contribuer au projet
-            </a>
-            <a
-              href="https://github.com/Docteur-Parfait/os228/blob/main/data/projects.json"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="border border-border text-foreground hover:bg-secondary px-6 py-3 rounded-lg font-medium transition-colors duration-200"
-            >
-              Ajouter un projet
-            </a>
+        {/* Features Section */}
+        <section className="py-16 bg-card">
+          <div className="max-w-6xl mx-auto px-4">
+            <h2 className="text-3xl font-bold text-center mb-12">
+              Fonctionnalités
+            </h2>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+              <div className="bg-background p-6 rounded-lg">
+                <h3 className="text-xl font-semibold mb-2">Liste des projets</h3>
+                <p className="text-muted-foreground">
+                  Découvrez tous les projets open source du Togo.
+                </p>
+              </div>
+              <div className="bg-background p-6 rounded-lg">
+                <h3 className="text-xl font-semibold mb-2">Interface moderne</h3>
+                <p className="text-muted-foreground">
+                  Design responsive avec thème vert sombre (open source).
+                </p>
+              </div>
+              <div className="bg-background p-6 rounded-lg">
+                <h3 className="text-xl font-semibold mb-2">Facilité de contribution</h3>
+                <p className="text-muted-foreground">
+                  Ajout simple de nouveaux projets via un fichier JSON.
+                </p>
+              </div>
+            </div>
           </div>
+        </section>
+
+        {/* Technologies Section */}
+        <section className="py-16">
+            <div className="max-w-4xl mx-auto px-4">
+                <h2 className="text-3xl font-bold text-center mb-12">Technologies utilisées</h2>
+                <div className="flex justify-center items-center gap-8">
+                    <div className="flex flex-col items-center">
+                        <span className="text-4xl">Next.js</span>
+                        <span className="text-muted-foreground">Framework React</span>
+                    </div>
+                    <div className="flex flex-col items-center">
+                        <span className="text-4xl">TypeScript</span>
+                        <span className="text-muted-foreground">Typage statique</span>
+                    </div>
+                    <div className="flex flex-col items-center">
+                        <span className="text-4xl">Tailwind CSS</span>
+                        <span className="text-muted-foreground">Framework CSS</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        {/* How to contribute Section */}
+        <section className="py-16 bg-card">
+            <div className="max-w-4xl mx-auto px-4">
+                <h2 className="text-3xl font-bold text-center mb-12">Comment contribuer</h2>
+                <div className="flex flex-col md:flex-row gap-8">
+                    <div className="md:w-1/2">
+                        <h3 className="text-xl font-semibold mb-2">Contribuer au code</h3>
+                        <p className="text-muted-foreground">
+                            Fork le repository, créer une branche pour votre fonctionnalité, faire vos modifications et créer une Pull Request.
+                        </p>
+                    </div>
+                    <div className="md:w-1/2">
+                        <h3 className="text-xl font-semibold mb-2">Ajouter un projet</h3>
+                        <p className="text-muted-foreground">
+                            Modifier le fichier `data/projects.json` et ajouter votre projet en suivant la structure existante.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        {/* Hacktoberfest Section */}
+        <section className="py-16">
+            <div className="max-w-4xl mx-auto px-4 text-center">
+                <h2 className="text-3xl font-bold mb-4">Hacktoberfest 2025</h2>
+                <p className="text-lg text-muted-foreground mb-8">
+                    Ce projet participe au Hacktoberfest 2025 ! Les issues étiquetées `hacktoberfest` sont prêtes pour les contributions.
+                </p>
+                <Link
+                  href="https://github.com/Docteur-Parfait/os228/issues"
+                  className="bg-primary text-primary-foreground hover:bg-primary/90 px-8 py-4 rounded-full font-medium transition-all duration-300 transform hover:scale-105"
+                >
+                  Voir les issues
+                </Link>
+            </div>
         </section>
       </main>
-
-      {/* Footer */}
-      <footer className="bg-card border-t border-border py-8 mt-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center">
-            <p className="mb-4 text-card-foreground">
-              OS228 - OpenSource 228 | Hacktoberfest 2025
-            </p>
-            <p className="text-sm text-muted-foreground">
-              Fait avec ❤️ par la communauté Night Coding
-            </p>
-          </div>
-        </div>
-      </footer>
     </div>
   );
 }
