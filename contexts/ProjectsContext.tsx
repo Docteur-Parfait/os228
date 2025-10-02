@@ -56,6 +56,18 @@ export function ProjectsProvider({ children }: { children: React.ReactNode }) {
           try {
             const githubInfo = extractGitHubInfo(project.link);
             if (!githubInfo) {
+              // Utiliser les stats de fallback si disponibles
+              if (project.fallbackStats) {
+                return {
+                  ...project,
+                  githubStats: {
+                    stars: project.fallbackStats.stars,
+                    forks: project.fallbackStats.forks,
+                    lastUpdated: new Date().toISOString(),
+                  },
+                  isLoadingStats: false,
+                };
+              }
               return { ...project, isLoadingStats: false };
             }
 
@@ -65,8 +77,24 @@ export function ProjectsProvider({ children }: { children: React.ReactNode }) {
             if (!stats) {
               stats = await getGitHubStats(githubInfo.owner, githubInfo.repo);
               if (stats) {
-                cache.set(cacheKey, stats, 5 * 60 * 1000);
+                // Cache pour 1 heure en cas de succès
+                cache.set(cacheKey, stats, 60 * 60 * 1000);
+              } else {
+                // Cache l'échec pour 10 minutes pour éviter de re-tenter trop souvent
+                cache.set(`${cacheKey}-failed`, true, 10 * 60 * 1000);
               }
+            }
+
+            // Si l'API échoue, utiliser les fallback stats
+            if (!stats && project.fallbackStats) {
+              console.log(
+                `📊 Utilisation des stats de fallback pour ${project.name}`
+              );
+              stats = {
+                stars: project.fallbackStats.stars,
+                forks: project.fallbackStats.forks,
+                lastUpdated: new Date().toISOString(),
+              };
             }
 
             return {
@@ -79,6 +107,23 @@ export function ProjectsProvider({ children }: { children: React.ReactNode }) {
               `Erreur lors du chargement des stats pour ${project.name}:`,
               error
             );
+
+            // En cas d'erreur, utiliser les fallback stats si disponibles
+            if (project.fallbackStats) {
+              console.log(
+                `📊 Utilisation des stats de fallback pour ${project.name} après erreur`
+              );
+              return {
+                ...project,
+                githubStats: {
+                  stars: project.fallbackStats.stars,
+                  forks: project.fallbackStats.forks,
+                  lastUpdated: new Date().toISOString(),
+                },
+                isLoadingStats: false,
+              };
+            }
+
             return { ...project, isLoadingStats: false };
           }
         })

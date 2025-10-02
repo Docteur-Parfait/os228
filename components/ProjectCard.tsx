@@ -1,156 +1,125 @@
 "use client";
 
-import { useState } from "react";
-import { ProjectWithStats } from "../data/projects";
+import React from "react";
+import { ExternalLink } from "lucide-react";
+import type { ProjectWithStats } from "@/data/projects";
+import FavoriteButton from "./FavoriteButton";
+import ShareButtons from "./ShareButtons";
 
 interface ProjectCardProps {
   project: ProjectWithStats;
 }
 
-const MAX_DESCRIPTION_LENGTH = 150;
-
-export default function ProjectCard({ project }: ProjectCardProps) {
-  const [isExpanded, setIsExpanded] = useState(false);
-  
-  // Utiliser les stats du projet depuis le contexte
+const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
   const stats = project.githubStats;
   const loading = project.isLoadingStats || false;
 
-  const isLongDescription = project.description.length > MAX_DESCRIPTION_LENGTH;
-  const displayedDescription = isExpanded || !isLongDescription
-    ? project.description
-    : `${project.description.slice(0, MAX_DESCRIPTION_LENGTH)}...`;
-
   return (
-    <div className="bg-card rounded-lg p-6 shadow-lg hover:shadow-xl transition-shadow duration-300 border border-border">
-      <div className="flex items-start  justify-between  mb-4">
-        <h3 className="text-xl font-bold leading-6 text-card-foreground">
+    <div className="bg-card rounded-lg p-6 shadow-lg hover:shadow-xl transition-shadow duration-300 border border-border h-full flex flex-col">
+      {/* Header avec titre et favori */}
+      <div className="flex items-start justify-between mb-4 gap-3">
+        <h3 className="text-xl font-bold leading-tight text-card-foreground flex-1 min-w-0 break-words">
           {project.name}
         </h3>
-        <div className="flex h-6  items-center gap-3 text-muted-foreground text-sm">
-          {loading ? (
-            <div className="flex items-center gap-2">
-              <div className="w-4 h-4 border-2 border-primary border-t-transparent rounded-full animate-spin"></div>
-              <span>Chargement...</span>
+        <div className="flex-shrink-0">
+          <FavoriteButton project={project} size="md" />
+        </div>
+      </div>
+
+      {/* Stats GitHub */}
+      <div className="flex items-center gap-3 text-muted-foreground text-sm mb-4">
+        {loading ? (
+          <div className="flex items-center gap-2">
+            <div className="w-4 h-4 border-2 border-primary border-t-transparent rounded-full animate-spin"></div>
+            <span>Chargement...</span>
+          </div>
+        ) : stats ? (
+          <>
+            <div className="flex items-center gap-1">
+              <span>⭐</span>
+              <span className="font-medium">{stats.stars}</span>
             </div>
-          ) : stats ? (
-            <>
-              <div className="flex items-center gap-1">
-                <span>⭐</span>
-                <span className="font-medium">{stats.stars}</span>
-              </div>
-              <div className="flex  items-center gap-1">
-                {/* Icône fork GitHub (revu) */}
-                <svg
-                  className="w-4 h-4"
-                  fill="currentColor"
-                  viewBox="0 0 24 24"
-                  aria-hidden="true"
-                >
-                  <path d="M6 3a3 3 0 1 0 2.83 4H9v4.18A3.001 3.001 0 0 0 11 14.83V17a3 3 0 1 0 2 0v-2.17A3.001 3.001 0 0 0 15 11.18V7.83A3.001 3.001 0 1 0 13 3v4.18A3.001 3.001 0 0 0 9 7.83V7a3 3 0 0 0-3-3zm0 2a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm12 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm-6 12a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
-                </svg>
-                <span className="font-medium">{stats.forks}</span>
-              </div>
-            </>
-          ) : (
-            <div className="flex  items-center gap-1 text-muted-foreground">
-              <span className="text-xs">Stats non disponibles</span>
+            <div className="flex items-center gap-1">
+              <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M8.5 6a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zM10 8.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1H11v2.5a.5.5 0 0 1-.5.5.5.5 0 0 1-.5-.5V8.5zm5.5-2.5a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3z" />
+              </svg>
+              <span className="font-medium">{stats.forks}</span>
             </div>
+          </>
+        ) : project.fallbackStats ? (
+          <>
+            <div className="flex items-center gap-1">
+              <span>⭐</span>
+              <span className="font-medium">{project.fallbackStats.stars}</span>
+            </div>
+            <div className="flex items-center gap-1">
+              <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M8.5 6a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zM10 8.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1H11v2.5a.5.5 0 0 1-.5.5.5.5 0 0 1-.5-.5V8.5zm5.5-2.5a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3z" />
+              </svg>
+              <span className="font-medium">{project.fallbackStats.forks}</span>
+            </div>
+          </>
+        ) : (
+          <div className="flex items-center gap-1 text-muted-foreground">
+            <span className="text-xs">Stats non disponibles</span>
+          </div>
+        )}
+      </div>
+
+      {/* Description avec truncation */}
+      <p className="text-muted-foreground mb-4 flex-1 text-sm leading-relaxed line-clamp-3">
+        {project.description}
+      </p>
+
+      {/* Technologies */}
+      <div className="mb-4">
+        <div className="flex flex-wrap gap-2">
+          {project.technologies.slice(0, 4).map((tech, index) => (
+            <span
+              key={index}
+              className="px-2 py-1 bg-secondary text-secondary-foreground rounded-md text-xs font-medium"
+            >
+              {tech}
+            </span>
+          ))}
+          {project.technologies.length > 4 && (
+            <span className="px-2 py-1 text-muted-foreground text-xs">
+              +{project.technologies.length - 4} autres
+            </span>
           )}
         </div>
       </div>
 
-      <div className="mb-4">
-        <p className="text-muted-foreground leading-relaxed">
-          {displayedDescription}
-        </p>
-        {isLongDescription && (
-          <button
-            onClick={() => setIsExpanded(!isExpanded)}
-            className="text-primary hover:text-primary/80 text-sm font-medium mt-2 transition-colors duration-200 flex items-center gap-1"
-          >
-            {isExpanded ? (
-              <>
-                Voir moins
-                <svg
-                  className="w-4 h-4"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M5 15l7-7 7 7"
-                  />
-                </svg>
-              </>
-            ) : (
-              <>
-                Voir plus
-                <svg
-                  className="w-4 h-4"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M19 9l-7 7-7-7"
-                  />
-                </svg>
-              </>
-            )}
-          </button>
-        )}
-      </div>
-
-      <div className="flex flex-wrap gap-2 mb-4">
-        {project.technologies.map((tech, index) => (
-          <span
-            key={index}
-            className="bg-primary/10 text-primary px-2 py-1 rounded text-xs font-medium"
-          >
-            {tech}
-          </span>
-        ))}
-      </div>
-
-      <div className="flex justify-between items-center text-sm text-muted-foreground">
-        <div>
+      {/* Auteur et langage */}
+      <div className="flex justify-between items-center text-sm text-muted-foreground mb-4">
+        <div className="truncate flex-1 min-w-0">
           <span className="font-medium">Auteur:</span> {project.author}
         </div>
-        <div>
+        <div className="flex-shrink-0 ml-2">
           <span className="font-medium">Langage:</span> {project.language}
         </div>
       </div>
 
-      <div className="mt-4 pt-4 border-t border-border">
-        <a
-          href={project.link}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-flex items-center text-primary hover:text-primary/80 font-medium transition-colors duration-200"
-        >
-          Voir sur GitHub
-          <svg
-            className="ml-2 w-4 h-4"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
+      {/* Footer avec actions */}
+      <div className="mt-auto pt-4 border-t border-border">
+        <div className="flex items-center justify-between gap-3">
+          <div className="flex items-center gap-2 flex-shrink-0">
+            <ShareButtons project={project} size="sm" />
+          </div>
+
+          <a
+            href={project.link}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1 px-3 py-1.5 bg-primary text-primary-foreground rounded-md hover:bg-primary/90 transition-colors text-xs font-medium"
           >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
-            />
-          </svg>
-        </a>
+            <ExternalLink className="w-3 h-3" />
+            Voir sur GitHub
+          </a>
+        </div>
       </div>
     </div>
   );
-}
+};
+
+export default ProjectCard;

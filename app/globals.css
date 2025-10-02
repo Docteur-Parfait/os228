@@ -116,3 +116,49 @@ body {
 .masonry-column > div {
   margin-bottom: 2rem;
 }
+
+/* Classes utilitaires pour la troncature de texte */
+.line-clamp-1 {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+}
+
+.line-clamp-2 {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.line-clamp-3 {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}
+
+/* Amélioration pour les cartes de projet */
+.project-card {
+  min-height: 400px;
+  max-height: 600px;
+}
+
+/* Éviter les débordements dans les grilles */
+.grid-container {
+  overflow: hidden;
+}
+
+.grid-container > * {
+  min-width: 0;
+}
+
+/* Classes utilitaires pour le texte */
+.line-clamp-3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
