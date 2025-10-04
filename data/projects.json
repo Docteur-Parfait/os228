@@ -309,5 +309,15 @@
     "category": "Community, Open Source, Learning",
     "author": "Ionfinisher",
     "language": "Java, Python, JavaScript"
-  }
+  },
+  {
+  "id": 24,
+  "name": "Afrobuilders",
+  "description": "An open-source platform that celebrates and showcases African technological innovation. Discover, explore and contribute to the continent's tech ecosystem.",
+  "link": "https://github.com/Hyver-organization/afrobuilders",
+  "technologies": ["Nextjs", "Node.js", "TypeScript"],
+  "category": "Web Development",
+  "author": "Hyver-organization",
+  "language": "Nextjs"
+}
 ]
