@@ -35,7 +35,9 @@ export default function ProjectFilters({
 
   const allLanguages = useMemo(() => {
     const languages = new Set<string>();
-    projects.forEach((p) => languages.add(p.language));
+    projects.forEach((p) => {
+      p.language.split(',').forEach((lang) => languages.add(lang.trim()))
+    });
     return Array.from(languages).sort();
   }, [projects]);
 
