@@ -442,5 +442,20 @@
     "author": "SINGO Yao Dieu Donné",
     "language": "JavaScript"
   }
+  {
+    "id": 34,
+    "name": "Akontaa App",
+    "description": "UNe application mobile qui vous permet de recenser tous ceux a qui vous devez de l'argent et ceux qui vous doivent. Ainsi, fini les soucis de j me rappelles plus ou de j avais oublié",
+    "link": "https://github.com/Donchaminade/akontaa",
+    "technologies": [
+      "Flutter",
+      "Dart",
+      "localstorage",
+      "Hive"
+    ],
+    "category": "Mobile development",
+    "author": "Donchaminade",
+    "language": "Dart Flutter"
+  }
 ]
 
